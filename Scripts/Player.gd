@@ -5,6 +5,7 @@ export var SPEED: = 500
 
 ## PRELOADING SCENES ##
 const STATIC_BOMB = preload("res://Scenes/StaticBomb.tscn")
+const THROW_BOMB = preload("res://Scenes/ThrowBomb.tscn")
 
 
 func movement() -> Vector2:
@@ -24,19 +25,28 @@ func movement() -> Vector2:
 
 
 func _physics_process(delta):
-	look_at(get_global_mouse_position()) # look at mouse
+	var mouse_pos: = self.get_global_mouse_position()
+	self.look_at(mouse_pos) # look at mouse
 	
-	# spawn new lay_bomb
+	# lay a bomb
 	if Input.is_action_just_pressed("lay_bomb"):
 		var static_bomb = STATIC_BOMB.instance()
 		static_bomb.position = self.global_position
-		get_tree().get_root().add_child(static_bomb)
+		self.get_tree().get_root().add_child(static_bomb)
 	
-	var velocity = movement().normalized() * delta * SPEED # calc velocity
+	# throw a bomb
+	if Input.is_action_just_pressed("throw_bomb"):
+		var throw_bomb = THROW_BOMB.instance()
+		throw_bomb.global_position = self.global_position
+		throw_bomb.direction = (mouse_pos - self.global_position).normalized()
+		self.get_tree().get_root().add_child(throw_bomb)
 	
-	var collision: = move_and_collide(velocity) # move to velocity with direction
+	var velocity: Vector2 = self.movement().normalized() * delta * SPEED # calc velocity
 	
-
+	var collision: = self.move_and_collide(velocity) # move to velocity with direction
+	
+	if collision:
+		print("[Player] Collision Detected")
 
 
 

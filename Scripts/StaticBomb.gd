@@ -1,6 +1,7 @@
 extends StaticBody2D
 
 onready var bomb_explosion = $Explosion
+onready var bomb_radius = $BombRadius_Area2D
 
 
 func ready():
@@ -11,5 +12,11 @@ func ready():
 func _on_Timer_timeout():
 	# show bomb explosion and then destory self
 	bomb_explosion.visible = true
-	yield(get_tree().create_timer(1.0), "timeout") # für was ist der timeout string?
-	queue_free()
+	
+	## check for players in range here and kill them ##
+	for area in bomb_radius.get_overlapping_areas():
+		area.get_parent().queue_free()
+	
+	yield(self.get_tree().create_timer(.5), "timeout")
+	
+	self.queue_free() # self destruct from tree
