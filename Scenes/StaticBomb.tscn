@@ -5,7 +5,7 @@
 [ext_resource path="res://Assets/explosion.jpeg" type="Texture" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 238.008
+radius = 186.024
 
 [node name="StaticBomb" type="StaticBody2D"]
 collision_layer = 0
