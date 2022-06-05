@@ -14,6 +14,11 @@ config/name="Bomberman-PlayerController"
 run/main_scene="res://Scenes/FirstMap.tscn"
 config/icon="res://Assets/icon.png"
 
+[display]
+
+window/size/resizable=false
+window/size/fullscreen=true
+
 [input]
 
 forward={

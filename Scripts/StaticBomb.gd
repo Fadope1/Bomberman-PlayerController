@@ -12,11 +12,12 @@ func ready() -> void:
 func _on_Timer_timeout() -> void:
     # show bomb explosion and then destory self
     bomb_explosion.visible = true
-    
+
     ## check for players in range here and kill them ##
     for area in bomb_radius.get_overlapping_areas():
-        area.get_parent().queue_free()
-    
+        if area.is_in_group("explode"):
+            area.get_parent().queue_free()
+
     yield(self.get_tree().create_timer(.5), "timeout")
-    
+
     self.queue_free() # self destruct from tree
