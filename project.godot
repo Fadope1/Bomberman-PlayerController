@@ -14,9 +14,23 @@ config/name="Bomberman-PlayerController"
 run/main_scene="res://Scenes/FirstMap.tscn"
 config/icon="res://Assets/icon.png"
 
+[autoload]
+
+Globals="*res://Globals/UI_settings.gd"
+
+[debug]
+
+settings/stdout/print_fps=true
+gdscript/completion/autocomplete_setters_and_getters=true
+
 [display]
 
 window/size/resizable=false
+window/size/fullscreen=true
+
+[editor_plugins]
+
+enabled=PoolStringArray(  )
 
 [input]
 
@@ -54,6 +68,7 @@ lay_bomb={
 [physics]
 
 common/enable_pause_aware_picking=true
+2d/default_gravity_vector=Vector2( 0, 0 )
 
 [rendering]
 
