@@ -1,0 +1,127 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Assets/Themes/title_style.tres" type="Theme" id=1]
+[ext_resource path="res://UI/StartScreen.gd" type="Script" id=2]
+[ext_resource path="res://UI/btn_play.gd" type="Script" id=3]
+[ext_resource path="res://UI/btn_options.gd" type="Script" id=4]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:rect_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "wiggle"
+length = 1.5
+loop = true
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:rect_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 10, -0.25, 0, 0.25, 0, -10, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 1, 1.5 )
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+
+[sub_resource type="Animation" id=4]
+resource_name = "wiggle"
+length = 1.5
+loop = true
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:rect_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 10, -0.25, 0, 0.25, 0, -10, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 1, 1.5 )
+}
+
+[node name="StartScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 159.0, 215.0, 185.0 ],
+"_edit_vertical_guides_": [ 439.0, 584.0, 511.0 ]
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 30
+alignment = 1
+
+[node name="sc_play" type="CenterContainer" parent="VBoxContainer"]
+margin_top = 151.0
+margin_right = 1024.0
+margin_bottom = 232.0
+
+[node name="btn_play" type="Button" parent="VBoxContainer/sc_play"]
+margin_left = 432.0
+margin_right = 592.0
+margin_bottom = 81.0
+rect_pivot_offset = Vector2( 79.158, 34.336 )
+theme = ExtResource( 1 )
+text = "Play"
+flat = true
+script = ExtResource( 3 )
+
+[node name="onHoverAnimation_play" type="AnimationPlayer" parent="VBoxContainer/sc_play/btn_play"]
+anims/RESET = SubResource( 1 )
+anims/wiggle = SubResource( 2 )
+
+[node name="sc_options" type="CenterContainer" parent="VBoxContainer"]
+margin_top = 262.0
+margin_right = 1024.0
+margin_bottom = 343.0
+rect_pivot_offset = Vector2( 306, -20 )
+
+[node name="btn_options" type="Button" parent="VBoxContainer/sc_options"]
+margin_left = 381.0
+margin_right = 642.0
+margin_bottom = 81.0
+rect_pivot_offset = Vector2( 130, 35 )
+theme = ExtResource( 1 )
+text = "Options"
+flat = true
+script = ExtResource( 4 )
+
+[node name="onHoverAnimation_options" type="AnimationPlayer" parent="VBoxContainer/sc_options/btn_options"]
+anims/RESET = SubResource( 3 )
+anims/wiggle = SubResource( 4 )
+
+[node name="sc_title" type="CenterContainer" parent="VBoxContainer"]
+margin_top = 373.0
+margin_right = 1024.0
+margin_bottom = 448.0
+
+[node name="Label" type="Label" parent="VBoxContainer/sc_title"]
+margin_left = 312.0
+margin_right = 711.0
+margin_bottom = 75.0
+theme = ExtResource( 1 )
+text = "Bomberman"
+align = 1
+valign = 1
+uppercase = true
+
+[connection signal="button_up" from="VBoxContainer/sc_play/btn_play" to="." method="_on_btn_play_button_up"]
+[connection signal="mouse_entered" from="VBoxContainer/sc_play/btn_play" to="VBoxContainer/sc_play/btn_play" method="_on_btn_play_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/sc_play/btn_play" to="VBoxContainer/sc_play/btn_play" method="_on_btn_play_mouse_exited"]
+[connection signal="mouse_entered" from="VBoxContainer/sc_options/btn_options" to="VBoxContainer/sc_options/btn_options" method="_on_btn_options_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/sc_options/btn_options" to="VBoxContainer/sc_options/btn_options" method="_on_btn_options_mouse_exited"]
