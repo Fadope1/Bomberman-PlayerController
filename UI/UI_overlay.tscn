@@ -1,0 +1,17 @@
+[gd_scene format=2]
+
+[node name="UI_overlay" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+margin_left = 895.0
+margin_bottom = 107.0
+
+[node name="Button" type="Button" parent="CenterContainer"]
+margin_left = 33.0
+margin_top = 43.0
+margin_right = 96.0
+margin_bottom = 63.0
+text = "Settings"

@@ -14,11 +14,27 @@ onready var bomb = preload("res://Scenes/Bomb_Sprite.tscn").instance()
 
 ## Vars ##
 var can_throw = true
+var mouse_pos: Vector2
 
 
 func _ready() -> void:
     self.bomb.position = self.bomb_position.position
     self.add_child(self.bomb)
+    
+
+func _unhandled_input(event: InputEvent) -> void: # so ui input doesn't call this
+#    mouse_pressed 
+    if self.can_throw:
+        # lay a bomb
+        if Input.is_action_just_pressed("lay_bomb"):
+            var static_bomb = STATIC_BOMB.instance()
+            self.bomb_action(static_bomb)
+
+        # throw a bomb
+        if Input.is_action_just_pressed("throw_bomb"):
+            var throw_bomb = PHYSICS_THROW_BOMB.instance()
+            throw_bomb.direction = (mouse_pos - self.global_position).normalized()
+            self.bomb_action(throw_bomb)
     
 
 func movement() -> Vector2:
@@ -47,20 +63,8 @@ func bomb_action(bomb_node) -> void:
 
 
 func _physics_process(delta: float) -> void:
-    var mouse_pos: = self.get_global_mouse_position()
+    self.mouse_pos = self.get_global_mouse_position()
     self.look_at(mouse_pos) # look at mouse
-    
-    if self.can_throw:
-        # lay a bomb
-        if Input.is_action_just_pressed("lay_bomb"):
-            var static_bomb = STATIC_BOMB.instance()
-            bomb_action(static_bomb)
-
-        # throw a bomb
-        if Input.is_action_just_pressed("throw_bomb"):
-            var throw_bomb = PHYSICS_THROW_BOMB.instance()
-            throw_bomb.direction = (mouse_pos - self.global_position).normalized()
-            bomb_action(throw_bomb)
 
     var velocity: Vector2 = self.movement().normalized() * delta * SPEED # calc velocity
 
